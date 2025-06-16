@@ -6,6 +6,7 @@ import { FilePlus, FolderPlus } from "lucide-react";
 const FileExplorer = () => {
     const [treeData, setTreeData] = useState(initialData);
     const [selectedId, setSelectedId] = useState(null);
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
     const getRootTargetId = () => {
         // Use first folder in the tree
@@ -92,94 +93,123 @@ const FileExplorer = () => {
     const [ariaMessage, setAriaMessage] = useState("");
 
     return (
-        <div
-            style={{
-                maxWidth: "100%",
-                width: "100%",
-                height: "100vh",
-                overflow: "auto",
-                background: "#000",
-                padding: "12px",
-                boxSizing: "border-box",
-                border: "1px solid var(--border)",
-            }}
-        >
+        <div style={{ display: "flex", height: "100vh", background: "#000" }}>
+            {/* Sidebar */}
             <div
                 style={{
-                    fontWeight: "bold",
-                    marginBottom: "6px",
+                    width: isCollapsed ? "60px" : "280px",
+                    transition: "width 0.3s",
+                    overflow: "hidden",
+                    borderRight: "1px solid var(--border)",
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "4px 8px",
-                    borderBottom: "1px solid var(--border)",
+                    flexDirection: "column",
                 }}
             >
-                <span>Files</span>
-                <div style={{ display: "flex", gap: "6px" }}>
-                    <FilePlus
-                        aria-label="Add File"
-                        role="button"
-                        size={16}
-                        color="white"
-                        style={{ cursor: "pointer" }}
-                        title="Add File"
-                        onClick={() => {
-                            const parentId = getRootTargetId();
-                            if (parentId) onAdd(parentId, false);
-                            else alert("No folders available to add file");
-                        }}
-                    />
-                    <FolderPlus
-                        size={16}
-                        aria-label="Add Folder"
-                        role="button"
-                        color="white"
-                        style={{ cursor: "pointer" }}
-                        title="Add Folder"
-                        onClick={() => {
-                            const parentId = getRootTargetId();
-                            if (parentId) onAdd(parentId, true);
-                            else alert("No folders available to add folder");
-                        }}
-                    />
+                {/* Top Bar */}
+                <div
+                    style={{
+                        fontWeight: "bold",
+                        marginBottom: "6px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "4px 8px",
+                        borderBottom: "1px solid var(--border)",
+                    }}
+                >
+                    {!isCollapsed && <span>Files</span>}
+                    <div style={{ display: "flex", gap: "6px" }}>
+                        <FilePlus
+                            aria-label="Add File"
+                            role="button"
+                            size={16}
+                            color="white"
+                            style={{ cursor: "pointer" }}
+                            title="Add File"
+                            onClick={() => {
+                                const parentId = getRootTargetId();
+                                if (parentId) onAdd(parentId, false);
+                                else alert("No folders available to add file");
+                            }}
+                        />
+                        <FolderPlus
+                            size={16}
+                            aria-label="Add Folder"
+                            role="button"
+                            color="white"
+                            style={{ cursor: "pointer" }}
+                            title="Add Folder"
+                            onClick={() => {
+                                const parentId = getRootTargetId();
+                                if (parentId) onAdd(parentId, true);
+                                else alert("No folders available to add folder");
+                            }}
+                        />
+                    </div>
+                </div>
+
+                {/* Live region for accessibility */}
+                <div
+                    aria-live="polite"
+                    role="status"
+                    style={{
+                        position: "absolute",
+                        width: "1px",
+                        height: "1px",
+                        overflow: "hidden",
+                        clip: "rect(0 0 0 0)",
+                        clipPath: "inset(50%)",
+                        whiteSpace: "nowrap",
+                    }}
+                >
+                    {ariaMessage}
+                </div>
+
+                {/* Tree area */}
+                <div
+                    role="tree"
+                    aria-label="File explorer tree"
+                    style={{ flexGrow: 1, overflowY: "auto", padding: "4px 8px" }}
+                >
+                    {treeData.map((node) => (
+                        <FileNode
+                            key={node.id}
+                            node={node}
+                            level={0}
+                            setNode={setNode}
+                            onDelete={onDelete}
+                            onAdd={onAdd}
+                            setSelectedId={setSelectedId}
+                            selectedId={selectedId}
+                            isCollapsed={isCollapsed} // optional if you want icon-only
+                        />
+                    ))}
                 </div>
             </div>
 
-            <div
-                aria-live="polite"
-                role="status"
+            {/* Collapse Toggle Button */}
+            <button
+                onClick={() => setIsCollapsed((prev) => !prev)}
                 style={{
-                    position: "absolute",
-                    width: "1px",
-                    height: "1px",
-                    overflow: "hidden",
-                    clip: "rect(0 0 0 0)",
-                    clipPath: "inset(50%)",
-                    whiteSpace: "nowrap",
+                    background: "#111",
+                    color: "white",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "6px 12px",
+                    writingMode: "vertical-rl",
+                    transform: "rotate(180deg)",
+                    height: "100%",
                 }}
+                aria-label="Toggle Sidebar"
+                title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-                {ariaMessage}
-            </div>
+                {isCollapsed ? "⯈" : "⯇"}
+            </button>
 
-
-
-            <div role="tree" aria-label="File explorer tree">
-                {treeData.map((node) => (
-                    <FileNode
-                        key={node.id}
-                        node={node}
-                        level={0}
-                        setNode={setNode}
-                        onDelete={onDelete}
-                        onAdd={onAdd}
-                        setSelectedId={setSelectedId}
-                        selectedId={selectedId}
-                    />
-                ))}
-            </div>
-
+            {/* Main content area placeholder */}
+            <div style={{ flex: 1, background: "#111" }} />
         </div>
+
     );
 };
 
