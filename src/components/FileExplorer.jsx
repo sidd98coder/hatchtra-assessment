@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import initialData from "../data/initialData";
 import FileNode from "./FileNode";
 import { FilePlus, FolderPlus } from "lucide-react";
+
+const flattenVisibleNodes = (nodes, visible = [], level = 0) => {
+    for (const node of nodes) {
+        visible.push({ ...node, level });
+        if (node.children && node.isOpen) {
+            flattenVisibleNodes(node.children, visible, level + 1);
+        }
+    }
+    return visible;
+};
 
 const FileExplorer = () => {
     const [treeData, setTreeData] = useState(initialData);
@@ -75,21 +85,60 @@ const FileExplorer = () => {
 
     const onAdd = (parentId, isFolder) => {
         const type = isFolder ? "Folder" : "File";
+        const id = Date.now().toString();
+
         const newNode = {
-            id: Date.now().toString(),
+            id,
             name: "",
             type: isFolder ? "folder" : "file",
             isEditing: true,
-            isOpen: true,
+            isOpen: isFolder,
             children: isFolder ? [] : undefined,
         };
+
         const newTree = addNodeById(treeData, parentId, newNode);
         setTreeData(newTree);
+        setSelectedId(id); // ✅ Focus this new node
         setAriaMessage(`${type} created`);
     };
 
 
     const [ariaMessage, setAriaMessage] = useState("");
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            const flat = flattenVisibleNodes(treeData);
+            const currentIndex = flat.findIndex((n) => n.id === selectedId);
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (currentIndex < flat.length - 1) {
+                    setSelectedId(flat[currentIndex + 1].id);
+                }
+            }
+
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    setSelectedId(flat[currentIndex - 1].id);
+                }
+            }
+
+            if (e.key === "Enter") {
+                const node = flat[currentIndex];
+                if (node?.type === "folder") {
+                    setNode({ ...node, isOpen: !node.isOpen });
+                }
+            }
+
+            if (e.key === "Delete" && selectedId) {
+                onDelete(selectedId);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedId, treeData]);
 
     return (
         <div style={{ display: "flex", height: "100vh", background: "#000" }}>
@@ -176,7 +225,7 @@ const FileExplorer = () => {
                             onAdd={onAdd}
                             setSelectedId={setSelectedId}
                             selectedId={selectedId}
-                            isCollapsed={isCollapsed} 
+                            isCollapsed={isCollapsed}
                         />
                     ))}
                 </div>

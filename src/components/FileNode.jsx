@@ -20,6 +20,7 @@ const FileNode = ({
     const [name, setName] = useState(node.name || "");
     const [isHovered, setIsHovered] = useState(false);
     const inputRef = useRef(null);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         if (node.isEditing) setIsEditing(true);
@@ -53,24 +54,39 @@ const FileNode = ({
         setSelectedId(node.id);
     };
 
+    useEffect(() => {
+        if (selectedId === node.id && containerRef.current && !node.isEditing) {
+            containerRef.current.focus();
+        }
+    }, [selectedId, node.isEditing]);
+
     return (
         <>
             <div
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={onSelect}
+                tabIndex={selectedId === node.id ? 0 : -1} // ✅ make only selected focusable
+                onFocus={() => setSelectedId(node.id)}    // ✅ keep selectedId in sync
                 style={{
                     padding: "4px 6px",
                     display: "flex",
                     alignItems: "center",
                     borderRadius: "4px",
-                    backgroundColor: isHovered ? "#1e1e1e" : "transparent",
-                    color: isHovered ? "#00b0ff" : "white",
+                    backgroundColor: selectedId === node.id
+                        ? "#1e1e1e"
+                        : isHovered
+                            ? "#1a1a1a"
+                            : "transparent",
+                    color: isHovered || selectedId === node.id ? "#00b0ff" : "white",
                     fontWeight: node.type === "folder" ? "bold" : "normal",
                     cursor: "pointer",
                     marginLeft: `${level * 16}px`,
+                    outline: "none"
                 }}
+                ref={containerRef}
             >
+
                 <div
                     role="treeitem"
                     aria-expanded={node.type === "folder" ? node.isOpen : undefined}
