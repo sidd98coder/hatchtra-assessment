@@ -34,8 +34,8 @@ Make sure you have the following installed:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/file-explorer-app.git
-cd file-explorer-app
+git clone https://github.com/sidd98coder/hatchtra-assessment.git
+cd hatchtra-assessment
 
 # 2. Install dependencies
 npm install
