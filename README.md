@@ -1,12 +1,76 @@
-# React + Vite
+📁 File Explorer App – VComply Frontend Machine Coding Round
+A React-based file explorer built using react, vite, lucide-react, with full support for:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✅ Expand/collapse folders
 
-Currently, two official plugins are available:
+✅ Create, rename, delete files/folders
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ In-place renaming
 
-## Expanding the ESLint configuration
+✅ Keyboard navigation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ Accessibility (ARIA, screen reader)
+
+✅ Native tooltips and responsive layout
+
+🚀 Getting Started
+Follow these steps to run the project locally.
+
+🔧 Prerequisites
+Ensure you have the following installed:
+
+Node.js (v16 or above)
+
+npm (comes with Node)
+
+📦 Installation
+bash
+Copy
+Edit
+# 1. Clone the repo
+git clone https://github.com/your-username/file-explorer-app.git
+cd file-explorer-app
+
+# 2. Install dependencies
+npm install
+▶️ Running the App
+bash
+Copy
+Edit
+# Start the development server
+npm run dev
+Then open your browser and visit:
+👉 http://localhost:5173
+
+📁 Folder Structure
+css
+Copy
+Edit
+src/
+├── components/
+│   ├── FileExplorer.jsx
+│   └── FileNode.jsx
+├── data/
+│   └── initialData.js
+├── App.jsx
+├── main.jsx
+└── index.css
+🧪 Optional: Build for Production
+bash
+Copy
+Edit
+npm run build
+Then preview the app:
+
+bash
+Copy
+Edit
+npm run preview
+📌 Notes
+Built using Vite for fast development
+
+Icon library: Lucide React
+
+Fully responsive and keyboard-accessible
+
+Followed best practices: modular components, accessibility, clean code
