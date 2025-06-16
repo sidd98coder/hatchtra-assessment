@@ -5,8 +5,6 @@ import {
     File as FileIcon,
     Pencil,
     Trash2,
-    Plus,
-    FolderArchive,
 } from "lucide-react";
 
 const FileNode = ({
@@ -22,7 +20,6 @@ const FileNode = ({
     const [name, setName] = useState(node.name || "");
     const [isHovered, setIsHovered] = useState(false);
     const inputRef = useRef(null);
-    const isSelected = selectedId === node.id;
 
     useEffect(() => {
         if (node.isEditing) setIsEditing(true);
@@ -33,13 +30,6 @@ const FileNode = ({
             inputRef.current.focus();
         }
     }, [isEditing]);
-
-    const handleToggle = (e) => {
-        e.stopPropagation();
-        if (node.type === "folder") {
-            setNode({ ...node, isOpen: !node.isOpen });
-        }
-    };
 
     const handleRename = () => {
         if (!name.trim()) {
@@ -65,7 +55,6 @@ const FileNode = ({
 
     return (
         <>
-            {/* Parent Node */}
             <div
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -82,7 +71,6 @@ const FileNode = ({
                     marginLeft: `${level * 16}px`,
                 }}
             >
-                {/* Icon */}
                 <div
                     role="treeitem"
                     aria-expanded={node.type === "folder" ? node.isOpen : undefined}
@@ -111,7 +99,6 @@ const FileNode = ({
                         : <FileIcon size={16} style={{ marginRight: "6px" }} />}
                 </div>
 
-                {/* Input or Text */}
                 {isEditing ? (
                     <input
                         ref={inputRef}
@@ -141,7 +128,6 @@ const FileNode = ({
                     <span style={{ flex: 1 }}>{node.name}</span>
                 )}
 
-                {/* Controls */}
                 {isHovered && !isEditing && (
                     <div style={{ display: "flex", gap: "4px" }}>
                         <span title="Rename" aria-label={`Rename ${node.name}`} role="button">
@@ -193,7 +179,6 @@ const FileNode = ({
                 )}
             </div>
 
-            {/* Children */}
             <div role="group">
                 {node.children && node.isOpen && (
                     <div>

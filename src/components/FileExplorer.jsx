@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import initialData from "../data/initialData";
 import FileNode from "./FileNode";
 import { FilePlus, FolderPlus } from "lucide-react";
