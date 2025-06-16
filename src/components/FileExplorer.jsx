@@ -98,7 +98,7 @@ const FileExplorer = () => {
 
         const newTree = addNodeById(treeData, parentId, newNode);
         setTreeData(newTree);
-        setSelectedId(id); // ✅ Focus this new node
+        setSelectedId(id);
         setAriaMessage(`${type} created`);
     };
 

@@ -66,8 +66,8 @@ const FileNode = ({
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={onSelect}
-                tabIndex={selectedId === node.id ? 0 : -1} // ✅ make only selected focusable
-                onFocus={() => setSelectedId(node.id)}    // ✅ keep selectedId in sync
+                tabIndex={selectedId === node.id ? 0 : -1}
+                onFocus={() => setSelectedId(node.id)} 
                 style={{
                     padding: "4px 6px",
                     display: "flex",
