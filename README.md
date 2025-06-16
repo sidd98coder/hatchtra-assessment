@@ -14,7 +14,7 @@ A modern, accessible, and responsive file explorer built with:
 ✅ Create, rename, delete files/folders  
 ✅ In-place renaming  
 ✅ Keyboard navigation  
-✅ Accessible (ARIA roles, screen reader support, live region announcements)  
+✅ Accessible (ARIA roles, screen reader support)  
 ✅ Native tooltips and responsive layout  
 
 ---
