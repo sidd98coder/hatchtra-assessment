@@ -7,6 +7,12 @@ const FileExplorer = () => {
     const [treeData, setTreeData] = useState(initialData);
     const [selectedId, setSelectedId] = useState(null);
 
+    const getRootTargetId = () => {
+        // Use first folder in the tree
+        const firstFolder = treeData.find((node) => node.type === "folder");
+        return firstFolder?.id || null;
+    };
+
     const updateNodeById = (nodes, id, updateFn) =>
         nodes.map((node) =>
             node.id === id
@@ -112,18 +118,30 @@ const FileExplorer = () => {
                 <span>Files</span>
                 <div style={{ display: "flex", gap: "6px" }}>
                     <FilePlus
+                        aria-label="Add File"
+                        role="button"
                         size={16}
                         color="white"
                         style={{ cursor: "pointer" }}
                         title="Add File"
-                        onClick={() => onAdd("root", false)}
+                        onClick={() => {
+                            const parentId = getRootTargetId();
+                            if (parentId) onAdd(parentId, false);
+                            else alert("No folders available to add file");
+                        }}
                     />
                     <FolderPlus
                         size={16}
+                        aria-label="Add Folder"
+                        role="button"
                         color="white"
                         style={{ cursor: "pointer" }}
                         title="Add Folder"
-                        onClick={() => onAdd("root", true)}
+                        onClick={() => {
+                            const parentId = getRootTargetId();
+                            if (parentId) onAdd(parentId, true);
+                            else alert("No folders available to add folder");
+                        }}
                     />
                 </div>
             </div>
