@@ -1,13 +1,21 @@
-import './App.css';
-import IconCard from './components/IconCard';
+import React from "react";
+import FileExplorer from "./components/FileExplorer";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>Working demo of the file explorer</h1>
-      <IconCard />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        padding: "16px",
+        minHeight: "100vh",
+        backgroundColor: "#111",
+      }}
+    >
+      <FileExplorer />
     </div>
   );
-}
+};
 
 export default App;
