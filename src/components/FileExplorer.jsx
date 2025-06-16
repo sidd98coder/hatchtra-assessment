@@ -9,7 +9,6 @@ const FileExplorer = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const getRootTargetId = () => {
-        // Use first folder in the tree
         const firstFolder = treeData.find((node) => node.type === "folder");
         return firstFolder?.id || null;
     };
@@ -94,7 +93,6 @@ const FileExplorer = () => {
 
     return (
         <div style={{ display: "flex", height: "100vh", background: "#000" }}>
-            {/* Sidebar */}
             <div
                 style={{
                     width: isCollapsed ? "60px" : "280px",
@@ -105,7 +103,6 @@ const FileExplorer = () => {
                     flexDirection: "column",
                 }}
             >
-                {/* Top Bar */}
                 <div
                     style={{
                         fontWeight: "bold",
@@ -148,7 +145,6 @@ const FileExplorer = () => {
                     </div>
                 </div>
 
-                {/* Live region for accessibility */}
                 <div
                     aria-live="polite"
                     role="status"
@@ -165,7 +161,6 @@ const FileExplorer = () => {
                     {ariaMessage}
                 </div>
 
-                {/* Tree area */}
                 <div
                     role="tree"
                     aria-label="File explorer tree"
@@ -181,13 +176,12 @@ const FileExplorer = () => {
                             onAdd={onAdd}
                             setSelectedId={setSelectedId}
                             selectedId={selectedId}
-                            isCollapsed={isCollapsed} // optional if you want icon-only
+                            isCollapsed={isCollapsed} 
                         />
                     ))}
                 </div>
             </div>
 
-            {/* Collapse Toggle Button */}
             <button
                 onClick={() => setIsCollapsed((prev) => !prev)}
                 style={{
@@ -206,7 +200,6 @@ const FileExplorer = () => {
                 {isCollapsed ? "⯈" : "⯇"}
             </button>
 
-            {/* Main content area placeholder */}
             <div style={{ flex: 1, background: "#111" }} />
         </div>
 
