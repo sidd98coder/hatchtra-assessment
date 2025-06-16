@@ -1,51 +1,75 @@
-📁 File Explorer App – VComply Frontend Machine Coding Round
-A React-based file explorer built using react, vite, lucide-react, with full support for:
+# 📁 File Explorer App – VComply Frontend Machine Coding Round
 
-✅ Expand/collapse folders
+A modern, accessible, and responsive file explorer built with:
 
-✅ Create, rename, delete files/folders
+- **React**
+- **Vite**
+- **Lucide React Icons**
 
-✅ In-place renaming
+---
 
-✅ Keyboard navigation
+## ✨ Features
 
-✅ Accessibility (ARIA, screen reader)
+✅ Expand/collapse folders  
+✅ Create, rename, delete files/folders  
+✅ In-place renaming  
+✅ Keyboard navigation  
+✅ Accessible (ARIA roles, screen reader support, live region announcements)  
+✅ Native tooltips and responsive layout  
 
-✅ Native tooltips and responsive layout
+---
 
-🚀 Getting Started
-Follow these steps to run the project locally.
+## 🚀 Getting Started
 
-🔧 Prerequisites
-Ensure you have the following installed:
+### 🔧 Prerequisites
 
-Node.js (v16 or above)
+Make sure you have the following installed:
 
-npm (comes with Node)
+- [Node.js](https://nodejs.org/) (v16 or above)
+- npm (comes with Node)
 
-📦 Installation
-bash
-Copy
-Edit
-# 1. Clone the repo
+---
+
+### 📦 Installation
+
+```bash
+# 1. Clone the repository
 git clone https://github.com/your-username/file-explorer-app.git
 cd file-explorer-app
 
 # 2. Install dependencies
 npm install
-▶️ Running the App
-bash
-Copy
-Edit
+```
+
+---
+
+### ▶️ Running the App
+
+```bash
 # Start the development server
 npm run dev
-Then open your browser and visit:
-👉 http://localhost:5173
+```
 
-📁 Folder Structure
-css
-Copy
-Edit
+Now open your browser and visit:  
+👉 **http://localhost:5173**
+
+---
+
+### 🧪 Build for Production (Optional)
+
+```bash
+# Build the app
+npm run build
+
+# Preview the built app
+npm run preview
+```
+
+---
+
+## 📁 Folder Structure
+
+```
 src/
 ├── components/
 │   ├── FileExplorer.jsx
@@ -55,22 +79,14 @@ src/
 ├── App.jsx
 ├── main.jsx
 └── index.css
-🧪 Optional: Build for Production
-bash
-Copy
-Edit
-npm run build
-Then preview the app:
+```
 
-bash
-Copy
-Edit
-npm run preview
-📌 Notes
-Built using Vite for fast development
+---
 
-Icon library: Lucide React
+## 📌 Notes
 
-Fully responsive and keyboard-accessible
-
-Followed best practices: modular components, accessibility, clean code
+- 🚀 Built with [Vite](https://vitejs.dev/) for lightning-fast development
+- 🎨 Icon library: [Lucide React](https://lucide.dev/)
+- ♿ Fully accessible (keyboard + screen readers + tooltips)
+- 🧩 Modular components and clean, scalable code
+- 📱 Mobile responsive design
